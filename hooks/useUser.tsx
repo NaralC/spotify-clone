@@ -4,7 +4,7 @@ import {
   useSessionContext,
   useUser as useSupaUser,
 } from "@supabase/auth-helpers-react";
-import { FC, createContext, useEffect, useState } from "react";
+import { FC, createContext, useContext, useEffect, useState } from "react";
 
 type UserContext = {
   accessToken: string | null;
@@ -87,3 +87,13 @@ export const MyUserContextProvider = (props: Props) => {
     />
   );
 };
+
+export const useUser = () => {
+    const context = useContext(UserContext);
+
+    if (context === undefined) {
+        throw new Error('useUser is out of its providers bound')
+    }
+
+    return context;
+}
