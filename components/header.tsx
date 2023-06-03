@@ -4,12 +4,14 @@ import { twMerge } from "tailwind-merge";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { useRouter } from "next/navigation";
 import { FaUserAlt } from "react-icons/fa";
-// import { useSupabaseClient } from '@supabase/auth-helpers-react';
-// import { toast } from "react-hot-toast";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { toast } from "react-hot-toast";
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { ReactNode } from "react";
 import Button from "./button";
+import { useAuthModal } from "@/hooks/useAuthModal";
+import { useUser } from "@/hooks/useUser";
 
 // import useAuthModal from "@/hooks/useAuthModal";
 // import { useUser } from "@/hooks/useUser";
@@ -25,18 +27,18 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const router = useRouter();
   //   const player = usePlayer();
-  //   const authModal = useAuthModal();
+  const authModal = useAuthModal();
 
-  //   const supabaseClient = useSupabaseClient();
-  //   const { user } = useUser();
+  const supabaseClient = useSupabaseClient();
+  const { user } = useUser();
 
   const handleLogout = async () => {
-    //     const { error } = await supabaseClient.auth.signOut();
+    const { error } = await supabaseClient.auth.signOut();
     //     player.reset();
-    //     router.refresh();
-    //     if (error) {
-    //       toast.error(error.message);
-    //     }
+    router.refresh();
+    if (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -79,14 +81,31 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         </div>
 
         <div className="flex items-center justify-between gap-x-4">
-          <>
-            <div>
-              <Button onClick={() => {}} className="font-medium bg-transparent text-neutral-300">Sign up</Button>
+          {user ? (
+            <div className="flex items-center gap-x-4">
+              <Button className="px-6 py-2 bg-white" onClick={handleLogout}>Logout</Button>
+              <Button className="bg-white" onClick={() => { router.push('/account') }}><FaUserAlt /></Button>
             </div>
-            <div>
-              <Button onClick={() => {}} className="px-6 py-2 font-medium bg-white">Log in</Button>
-            </div>
-          </>
+          ) : (
+            <>
+              <div>
+                <Button
+                  onClick={authModal.onOpen}
+                  className="font-medium bg-transparent text-neutral-300"
+                >
+                  Sign up
+                </Button>
+              </div>
+              <div>
+                <Button
+                  onClick={authModal.onOpen}
+                  className="px-6 py-2 font-medium bg-white"
+                >
+                  Log in
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </div>
       {children}
