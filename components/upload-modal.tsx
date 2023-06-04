@@ -94,20 +94,18 @@ const UploadModal = () => {
     }
   };
 
-  //   useEffect(() => {
-  //     if (session) {
-  //       router.refresh();
-  //       onClose();
-  //     }
-
-  //   }, [session, router, onClose])
+  const onChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      uploadModal.onClose();
+    }
+  };
 
   return (
     <Modal
       title="Upload a song!"
       description="Yeah fuck S3 💀 (mp3 only)"
       isOpen={uploadModal.isOpen}
-      onChange={() => {}}
+      onChange={onChange}
     >
       <form className="flex flex-col gap-y-4" onSubmit={handleSubmit(onSubmit)}>
         <Input

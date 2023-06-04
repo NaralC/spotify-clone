@@ -1,9 +1,15 @@
 import Header from "@/components/header";
 import ListItem from "@/components/list-item";
+import PageContent from "@/app/(site)/components/page-content";
+import getSongs from "@/lib/getSongs";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Home() {
+export const revalidate = 0; // No data caching. All data is up to date.
+
+export default async function Home() {
+  const songs = await getSongs();
+  
   return (
     <div
       className="w-full h-full overflow-hidden overflow-y-auto rounded-lg bg-neutral-900"
@@ -30,9 +36,8 @@ export default function Home() {
           <h1 className="text-2xl font-semibold text-white">
             Newest songs
           </h1>
-        </div>
-        List of Songs!
-        {/* <PageContent songs={songs} /> */}
+        </div> 
+        <PageContent songs={songs} />
       </div>
     </div>
   );
