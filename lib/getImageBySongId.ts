@@ -1,7 +1,7 @@
 import { Song } from "@/types";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
-const getImageFromSong = (song: Song) => {
+const getImageBySongId = (song: Song) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const supabaseClient = useSupabaseClient();
 
@@ -15,4 +15,4 @@ const getImageFromSong = (song: Song) => {
     return imageData.publicUrl;
 }
 
-export default getImageFromSong;
+export default getImageBySongId;

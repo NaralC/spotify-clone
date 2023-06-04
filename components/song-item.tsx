@@ -1,5 +1,5 @@
 "use client";
-import getImageFromSong from "@/lib/getImageFromSong";
+import getImageBySongId from "@/lib/getImageBySongId";
 import { Song } from "@/types";
 import Image from "next/image";
 import { FC } from "react";
@@ -9,7 +9,7 @@ const SongItem: FC<{
   data: Song;
   onClick: (id: string) => void;
 }> = ({ data, onClick }) => {
-  const imagePath = getImageFromSong(data);
+  const imagePath = getImageBySongId(data);
 
   return (
     <div
