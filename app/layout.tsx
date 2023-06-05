@@ -6,6 +6,7 @@ import UserProvider from "@/providers/user-provider";
 import ModalProvider from "@/providers/modal-provider";
 import { Toaster } from "react-hot-toast";
 import getSongsByUserId from "@/lib/getSongsByUserId";
+import Player from "@/components/player";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +39,7 @@ export default async function RootLayout({
             />
             <ModalProvider />
             <Sidebar songs={userSongs}>{children}</Sidebar>
+            <Player />
           </UserProvider>
         </SupabaseProvider>
       </body>
