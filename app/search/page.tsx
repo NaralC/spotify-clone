@@ -4,6 +4,8 @@ import getSongsByTitle from "@/lib/getSongsByTitle";
 import { NextPage } from "next";
 import SearchContent from "./components/search-content";
 
+export const revalidate = 0;
+
 interface SearchProps {
   searchParams: {
     title: string;
