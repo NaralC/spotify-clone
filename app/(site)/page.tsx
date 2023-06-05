@@ -9,7 +9,7 @@ export const revalidate = 0; // No data caching. All data is up to date.
 
 export default async function Home() {
   const songs = await getSongs();
-  
+
   return (
     <div
       className="w-full h-full overflow-hidden overflow-y-auto rounded-lg bg-neutral-900"
