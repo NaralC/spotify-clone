@@ -1,4 +1,5 @@
 'use client'
+import usePlayer from '@/hooks/usePlayer';
 import getImageBySongId from '@/lib/getImageBySongId';
 import { Song } from '@/types'
 import Image from 'next/image';
@@ -9,11 +10,13 @@ const MediaItem: FC<{
   onClick?: (id: string) => void;
 }> = ({ data, onClick }) => {
   const imageUrl = getImageBySongId(data);
+  const player = usePlayer();
 
   const handleClick = () => {
     if (onClick) { return onClick(data.id) }
 
-    // TODO: Default, turn on player
+    player.setId(data.id);
+    return;
   }
 
   return (

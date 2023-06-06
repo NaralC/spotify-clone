@@ -7,6 +7,7 @@ import ModalProvider from "@/providers/modal-provider";
 import { Toaster } from "react-hot-toast";
 import getSongsByUserId from "@/lib/getSongsByUserId";
 import Player from "@/components/player";
+import getActiveProductsWithPrices from "@/lib/getActiveProductsWithPrices";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const userSongs = await getSongsByUserId();
+  const products = await getActiveProductsWithPrices();
 
   return (
     <html lang="en">
@@ -37,7 +39,7 @@ export default async function RootLayout({
                 },
               }}
             />
-            <ModalProvider />
+            <ModalProvider products={products} />
             <Sidebar songs={userSongs}>{children}</Sidebar>
             <Player />
           </UserProvider>

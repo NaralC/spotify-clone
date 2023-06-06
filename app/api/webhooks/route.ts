@@ -9,6 +9,9 @@ import {
   manageSubscriptionStatusChange
 } from '@/lib/stripe/supabaseAdmin';
 
+// Always have this running in the bg
+// ./stripe.exe listen --forward-to localhost:3000/api/webhooks
+
 const relevantEvents = new Set([
   'product.created',
   'product.updated',
